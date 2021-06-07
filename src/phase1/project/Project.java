@@ -1,6 +1,12 @@
 package phase1.project;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 class InvalidOptionException extends Exception {
 	
@@ -11,6 +17,10 @@ class InvalidOptionException extends Exception {
 }
 
 public class Project {
+	
+	public static boolean validateRootDir(String root_dir) {
+		return Files.isDirectory(Paths.get(root_dir));
+	}
 	
 	public static void displayOptions() {
 		
@@ -36,8 +46,24 @@ public class Project {
 		}
 	}
 	
-	public static void option1() {
-		System.out.println("Entered option 1: TODO\n");
+	public static void option1(String root_dir) {
+		File directory = new File(root_dir);
+		File[] filesArray = directory.listFiles();
+		
+		System.out.println("\nPrinting all files in the root directory: ");
+		System.out.println("------------------------------------------------");
+		
+		Arrays.sort(filesArray);
+		int counter = 1;
+		for (File file : filesArray) {
+			if (file.isFile()) {
+				System.out.println("File " + counter + ": " + file.getName());
+				counter += 1;
+			}
+		}
+		
+		System.out.println("------------------------------------------------");
+		System.out.println("\n");
 	}
 	
 	public static void option2() {
@@ -57,11 +83,22 @@ public class Project {
 		System.out.println("\n\n");
 		
 		System.out.println("Developer - Raghav Gupta, Full stack developer");
-		System.out.println("\n\n");
+		System.out.println("\n");
 		
-		
+
 		int option_num = 0;
 		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Enter the root directory for all future operations: ");
+		String root_dir = sc.nextLine();
+		
+		while (!validateRootDir(root_dir)) {
+			System.out.println("[ERROR] Directory does not exist, enter another directory\n");
+			System.out.print("Enter the root directory for all future operations: ");
+			root_dir = sc.nextLine();
+		}
+		
+		System.out.println();
 		
 		while (true) {
 			
@@ -83,7 +120,7 @@ public class Project {
 			}
 			
 			if (option_num == 1) {
-				option1();
+				option1(root_dir);
 			}
 			
 			if (option_num == 2) {
