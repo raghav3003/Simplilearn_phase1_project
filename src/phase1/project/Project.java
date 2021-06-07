@@ -71,7 +71,8 @@ public class Project {
 	}
 	
 	public static void option3() {
-		System.out.println("Entered option 3: TODO\n");
+		System.out.println("Thank you for using the application. Exiting");
+		System.exit(0);
 	}
  
 	public static void main(String[] args) {
