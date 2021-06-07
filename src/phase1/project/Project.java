@@ -74,13 +74,22 @@ public class Project {
 			System.out.println("No files in the directory");
 		} else {
 			Arrays.sort(filesArray);
-			int counter = 1;
+			TreeSet<String> tr = new TreeSet<String>();
+			
 			for (File file : filesArray) {
 				if (file.isFile()) {
-					System.out.println("File " + counter + ": " + file.getName());
-					counter += 1;
+					tr.add(file.getName());
+//					System.out.println("File " + counter + ": " + file.getName());
+//					counter += 1;
 				}
 			}
+			
+			int counter = 1;
+			Iterator<String> itr = tr.iterator();
+			while(itr.hasNext()) {
+				System.out.println("File " + counter + ": " + itr.next());
+			}
+			
 		}
 		
 		System.out.println("------------------------------------------------");
